@@ -4,6 +4,10 @@
   "description": "TypeScript plugin to allow decorator syntax on free functions with runtime wrapping",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "author": "aikilan",
+  "repository": {
+    "url": "https://github.com/aikilan/ts-fun-decorator",
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
