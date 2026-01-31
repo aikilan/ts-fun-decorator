@@ -1,0 +1,7 @@
+node_modules
+dist
+.DS_Store
+.vscode
+.idea
+examples/react-vite/node_modules
+examples/react-vite/dist

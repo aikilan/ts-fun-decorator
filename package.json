@@ -1,0 +1,56 @@
+{
+  "name": "ts-fun-decorator",
+  "version": "0.1.0",
+  "description": "TypeScript plugin to allow decorator syntax on free functions with runtime wrapping",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.js"
+    },
+    "./runtime": {
+      "types": "./dist/runtime.d.ts",
+      "require": "./dist/runtime.js",
+      "import": "./dist/runtime.js"
+    },
+    "./preprocess": {
+      "types": "./dist/preprocess.d.ts",
+      "require": "./dist/preprocess.js",
+      "import": "./dist/preprocess.js"
+    },
+    "./transformer": {
+      "types": "./dist/transformer.d.ts",
+      "require": "./dist/transformer.js",
+      "import": "./dist/transformer.js"
+    },
+    "./vite": {
+      "types": "./dist/vite.d.ts",
+      "require": "./dist/vite.js",
+      "import": "./dist/vite.js"
+    },
+    "./pathUtils": {
+      "types": "./dist/pathUtils.d.ts",
+      "require": "./dist/pathUtils.js",
+      "import": "./dist/pathUtils.js"
+    }
+  },
+  "bin": {
+    "fn-tsc": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node scripts/test.js"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

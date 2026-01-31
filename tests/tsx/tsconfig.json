@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "outDir": "../out/tsx",
+    "rootDir": ".",
+    "jsx": "react",
+    "jsxFactory": "h",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "plugins": [{ "name": "ts-function-decorator" }]
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"]
+}
