@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "author": "aikilan",
   "repository": {
-    "url": "https://github.com/aikilan/ts-fun-decorator",
+    "url": "https://github.com/aikilan/ts-fun-decorator"
   },
   "exports": {
     ".": {
