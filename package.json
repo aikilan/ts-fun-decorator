@@ -1,6 +1,6 @@
 {
   "name": "ts-fun-decorator",
-  "version": "0.1.0",
+  "version": "0.6.1",
   "description": "TypeScript plugin to allow decorator syntax on free functions with runtime wrapping",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
