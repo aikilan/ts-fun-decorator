@@ -117,6 +117,14 @@ export function createAsyncDecorator<
 >(handler: AsyncDecoratorHandler<T, R>) {
   return (fn: T): DecoratedFunction<T, Promise<R>> => {
     return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
+      const safeAsync = <V>(call: () => V): Promise<Awaited<V>> => {
+        try {
+          return Promise.resolve(call());
+        } catch (error) {
+          return Promise.reject(error);
+        }
+      };
+
       const baseCall = (
         boundThis: ThisParameterType<T>,
         boundArgs: Parameters<T>
@@ -124,17 +132,17 @@ export function createAsyncDecorator<
 
       const next: AsyncNextFn<T> = ((...nextArgs: Parameters<T>) => {
         const finalArgs = nextArgs.length ? nextArgs : args;
-        return Promise.resolve(baseCall(this, finalArgs));
+        return safeAsync(() => baseCall(this, finalArgs));
       }) as AsyncNextFn<T>;
 
       next.withArgs = (...nextArgs: Parameters<T>) =>
-        Promise.resolve(baseCall(this, nextArgs));
+        safeAsync(() => baseCall(this, nextArgs));
       next.withThis = (
         thisArg: ThisParameterType<T>,
         ...nextArgs: Parameters<T>
       ) => {
         const finalArgs = nextArgs.length ? nextArgs : args;
-        return Promise.resolve(baseCall(thisArg, finalArgs));
+        return safeAsync(() => baseCall(thisArg, finalArgs));
       };
 
       const ctx: DecoratorContext<T> = {
@@ -148,7 +156,7 @@ export function createAsyncDecorator<
         }
       };
 
-      return handler(next, ctx);
+      return safeAsync(() => handler(next, ctx)) as Promise<R>;
     } as DecoratedFunction<T, Promise<R>>;
   };
 }
