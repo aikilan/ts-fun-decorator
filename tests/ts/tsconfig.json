@@ -7,7 +7,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "plugins": [{ "name": "ts-function-decorator" }]
+    "plugins": [{ "name": "ts-fun-decorator" }]
   },
   "include": ["./**/*.ts"]
 }

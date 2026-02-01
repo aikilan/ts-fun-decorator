@@ -179,10 +179,13 @@ function readHoistModeFromConfig(config: unknown): HoistMode | undefined {
 
   const record = config as Record<string, unknown>;
   const direct = record["ts-fun-decorator"];
+  const legacyFunction = record["ts-function-decorator"];
   const legacy = record.functionDecorator;
   const section =
     direct && typeof direct === "object"
       ? (direct as Record<string, unknown>)
+      : legacyFunction && typeof legacyFunction === "object"
+      ? (legacyFunction as Record<string, unknown>)
       : legacy && typeof legacy === "object"
       ? (legacy as Record<string, unknown>)
       : undefined;

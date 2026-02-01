@@ -1,4 +1,4 @@
-# ts-function-decorator
+# ts-fun-decorator
 
 TypeScript plugin to allow decorator syntax on free functions (Python-style), compiled into runtime wrapper calls.
 
@@ -13,7 +13,7 @@ Add to your `tsconfig.json`:
 ```json
 {
   "compilerOptions": {
-    "plugins": [{ "name": "ts-function-decorator" }]
+    "plugins": [{ "name": "ts-fun-decorator" }]
   }
 }
 ```
@@ -59,6 +59,12 @@ cd examples/react-vite
 npm install
 npm run dev
 ```
+
+## Compatibility
+
+- Preferred package name: `ts-fun-decorator`.
+- Legacy package names supported via wrappers: `ts-function-decorator`, `ts-func-decorator`.
+- CLI config keys remain backward compatible: `ts-fun-decorator`, `ts-function-decorator`, `ts-func-decorator`, `functionDecorator`.
 
 ## Example
 

@@ -1,6 +1,6 @@
 {
   "private": true,
   "devDependencies": {
-    "ts-function-decorator": "file:.."
+    "ts-fun-decorator": "file:.."
   }
 }
