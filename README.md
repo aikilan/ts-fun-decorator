@@ -60,11 +60,11 @@ npm install
 npm run dev
 ```
 
-## Compatibility
+## Migration
 
-- Preferred package name: `ts-fun-decorator`.
-- Legacy package names supported via wrappers: `ts-function-decorator`, `ts-func-decorator`.
-- CLI config keys remain backward compatible: `ts-fun-decorator`, `ts-function-decorator`, `ts-func-decorator`, `functionDecorator`.
+- `ts-function-decorator` is no longer supported. Update dependencies and imports to `ts-fun-decorator`.
+- The Vite plugin will warn if it detects the legacy package name in your `package.json`.
+- CLI config keys accepted: `ts-fun-decorator`, `functionDecorator`.
 
 ## Example
 

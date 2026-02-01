@@ -9,6 +9,7 @@ interface Plugin {
   name: string;
   enforce?: "pre" | "post";
   config?: (...args: any[]) => any;
+  configResolved?: (...args: any[]) => any;
   transform?: (...args: any[]) => any;
 }
 
@@ -25,12 +26,57 @@ const dummyProgram = ts.createProgram([], {
   jsx: ts.JsxEmit.Preserve
 });
 
+const legacyPackageName = "ts-function-decorator";
+let legacyCheckDone = false;
+
+function warnIfLegacyPackage(root: string): void {
+  if (legacyCheckDone) {
+    return;
+  }
+  legacyCheckDone = true;
+
+  const pkgPath = path.join(root, "package.json");
+  if (!fs.existsSync(pkgPath)) {
+    return;
+  }
+
+  let pkg: any;
+  try {
+    pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+  } catch {
+    return;
+  }
+
+  const sections = [
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+    "optionalDependencies"
+  ];
+
+  for (const section of sections) {
+    if (pkg?.[section]?.[legacyPackageName]) {
+      console.warn(
+        `[ts-fun-decorator] Detected legacy package "${legacyPackageName}" in ${section}. ` +
+          `Please update dependencies and replace imports/tsconfig plugin name with "ts-fun-decorator".`
+      );
+      break;
+    }
+  }
+}
+
 export function functionDecoratorPlugin(
   options: FunctionDecoratorVitePluginOptions = {}
 ): Plugin {
+  let resolvedRoot: string | undefined;
+
   return {
     name: "ts-fun-decorator",
     enforce: "pre",
+    configResolved(config: { root?: string }) {
+      resolvedRoot = config?.root;
+      warnIfLegacyPackage(resolvedRoot ?? process.cwd());
+    },
     config(_config: any, env?: { command?: string }) {
       if (env?.command && env.command !== "serve") {
         return;
@@ -45,6 +91,10 @@ export function functionDecoratorPlugin(
       };
     },
     transform(code: string, id: string) {
+      if (!legacyCheckDone) {
+        warnIfLegacyPackage(resolvedRoot ?? process.cwd());
+      }
+
       if (id.startsWith("\0")) {
         return null;
       }
